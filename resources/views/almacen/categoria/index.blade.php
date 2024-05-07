@@ -4,14 +4,13 @@
 		<div class="col-lg-8 col-md-8 col-ms-8 col-xs-12">
 			<h3>Listado de Categoria <a href="categoria/create"><button class="btn btn-success">Nuevo</button></a></h3>
 			@include('almacen.categoria.search')
-
 		</div>
 	</div>
 
 	<div class="row">
 		<class class="col-lg-12 col-md-12">
 			<div class="table-resposive">
-				<table class="table table-striped table bordered table- condesed table hover">
+				<table class="table table-striped table bordered table-condesed table hover">
 					<thead>
 						<tr>
 							<th>Id</th>
@@ -27,10 +26,11 @@
 							<td>{{$cat -> nombre}}</td>
 							<td>{{$cat -> descripcion}}</td>
 							<td>
-								<a href=""><button class="btn btn-info">Editar</button></a>
-								<a href=""><button class="btn btn-danger">Eliminar</button></a>
+								<a href="{{ route('categoria.edit', $cat->idcategoria) }}"><button class="btn btn-info">Editar</button></a>
+								<a href="" data-target="#modal-delete-{{$cat->idcategoria}}" data-toggle="modal" ><button class="btn btn-danger">Eliminar</button></a>
 							</td>
 						</tr>
+						@include ('almacen.categoria.modal')
 						@endforeach
 					</tbody>
 				</table>

@@ -22,7 +22,6 @@ class Categoria extends Model
 
     ];
 
-
 }
 
 ?>

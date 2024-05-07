@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\CategoriaFormRequest;
 use DB;
 
-
 class CategoriaController extends Controller
 {
     public function __construct()
@@ -22,53 +21,65 @@ class CategoriaController extends Controller
         if ($request)
         {
             $query=trim($request->get('searchText'));
-            $categorias=DB::table('categoria')->where('nombre','LIKE','%'.$query.'%')
+            $categorias=DB::table('categoria')
+            ->where('nombre','LIKE','%'.$query.'%')
             ->where ('condicion','=','1')
             ->orderBy('idcategoria','desc')
             ->paginate(7);
             return view('almacen.categoria.index',["categorias"=>$categorias,"searchText"=>$query]);
         }
     }
+
     public function create()
     {
         return view("almacen.categoria.create");
     }
+
     public function store (CategoriaFormRequest $request)
     {
-        $categoria = new Categoria;
-        $categoria->nombre=$request->get('nombre');
-        $categoria->descripcion=$request->get('descripcion');
-        $categoria->condicion='1';
-        $categoria->save();
+        $data = [
+            'nombre' => $request -> get('nombre'),
+            'descripcion' => $request -> get('descripcion'),
+            'condicion' => '1'
+        ];
+
+        DB::table('categoria') -> insert($data);
         return Redirect::to('almacen/categoria');
 
     }
+
     public function show($id)
     {
         return view("almacen.categoria.show",["categoria"=>Categoria::findOrFail($id)]);
     }
+
     public function edit($id)
     {
         return view("almacen.categoria.edit",["categoria"=>Categoria::findOrFail($id)]);
     }
-    public function update(CategoriaFormRequest $request,$id)
+
+    public function update(CategoriaFormRequest $request, $id)
     {
-        $categoria=Categoria::findOrFail($id);
-        $categoria->nombre=$request->get('nombre');
-        $categoria->descripcion=$request->get('descripcion');
-        $categoria->update();
+        $nombre = $request -> get('nombre');
+        $descripcion = $request -> get('descripcion');
+        
+        DB::table('categoria')
+            -> where ('idcategoria', $id)
+            -> update ([
+                'nombre' => $nombre,
+                'descripcion' => $descripcion
+            ]);
+
         return Redirect::to('almacen/categoria');
     }
-    public function destroy($id)
-    {
-        $categoria=Categoria::findOrFail($id);
-        $categoria->condicion='0';
-        $categoria->update();
+    public function destroy($id){
+        DB::table('categoria')
+            -> where ('idcategoria', $id)
+            -> update ([
+                'condicion' => '0'
+            ]);
+
         return Redirect::to('almacen/categoria');
     }
-
-
-
-
 
 }
