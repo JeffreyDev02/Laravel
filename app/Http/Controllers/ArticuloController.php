@@ -38,8 +38,76 @@ class ArticuloController extends Controller
         ->orderBy('idcategoria', 'asc')
         ->get();
 
-    return view('almacen.articulo.create', ["categorias" => $categorias]);
+        return view('almacen.articulo.create', ["categorias" => $categorias]);
 
+    }
+
+    public function store(ArticuloFormRequest $request){
+        
+        $name = Input::file('name')->getClientOriginalName();
+
+        $data = [
+            'idcategoria' => $request -> get('idcategoria'),
+            'codigo' => $request -> get('codigo'),
+            'nombre' => $request ->get('nombre'),
+            'stock' => $request ->get('stock'),
+            'descripcion' => $request ->get('descripcion'),
+            'imagen'=> $name,
+            'estado' => '1'
+        ];
+
+        DB::table('articulo') -> insert($data);
+        return Redirect::to('almacen/articulo');
+    }
+
+    public function edit($id)
+    {
+        $categorias = DB::table('categoria')
+        ->where('condicion', '=', '1')
+        ->orderBy('idcategoria', 'asc')
+        ->get();
+
+        return view("almacen.articulo.edit", ["articulo" => Articulo::findOrFail($id), "categorias" => $categorias]);
+    }
+
+    public function update(ArticuloFormRequest $request, $id)
+    {
+        $idcategoria = $request->get('idcategoria');
+        $codigo = $request->get('codigo');
+        $nombre = $request ->get('nombre');
+        $stock = $request ->get('stock');
+        $descripcion = $request ->get("descripcion");
+
+        $file = "";
+
+        if(Input::hasFile('imagen')){
+            $file = Input::file('imagen');
+            $file -> move(public_path().'/imagenes/articulos/', $file->getClientOriginalName());
+        }
+
+        DB::table('articulo')
+            -> where('idarticulo', $id)
+            -> update([
+                'idcategoria' => $idcategoria,
+                'codigo' => $codigo,
+                'nombre' => $nombre,
+                'stock' => $stock,
+                'descripcion' => $descripcion,
+                'imagen' => $file->getClientOriginalName()
+        ]);
+
+        return Redirect::to('almacen/articulo');
+    }
+
+    public function destroy($id)
+    {
+        DB::table('articulo')
+            -> where('idcategoria', $di)
+            -> update([
+                'estado' => '1'
+            ]);
+
+        return Redirect::to('almance/articulo');
     }
 
 

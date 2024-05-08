@@ -12,6 +12,12 @@
                 </ul>
             </div>
             @endif
+        </div>
+    </div>
+    <div class="row">
+        {!! Form::open(array('url'=> 'almacen/articulo', 'method' => 'POST', 'autocomplete' => 'off' )) !!}
+        {{Form::token()}}
+        <div class="col-lg-6 col-md-6 col-ms-12">
             <div class="form-group">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre">
@@ -24,6 +30,8 @@
                 <label for="stock" class="form-label">Stock</label>
                 <input type="number" name="stock" id="stock" class="form-control" placeholder="Stock">
             </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-ms-12">
             <div class="form-group">
                 <label for="descripcion" class="form-label">Descripcion</label>
                 <input type="text" name="descripcion" id="descripcion" class="form-control" placeholder="descripcion">
@@ -39,11 +47,20 @@
                 </select>
             </div>
             <div class="form-group">
+                <label for="imagen" class="form-label">Imagen</label>
+                <input type="file" name="imagen"  class="form-control">
+            </div>
+            <div class="form-group">
                 <button class="btn btn-primary" type="submit">Guardar</button>
                 <button class="btn btn-danger" type="reset">Cancelar</button>
             </div>
         </div>
-
-
+        {!! Form::close() !!}
     </div>
+            
+            
+            
+            
+            
+        
 @endsection

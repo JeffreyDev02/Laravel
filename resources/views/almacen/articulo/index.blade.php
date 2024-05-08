@@ -31,12 +31,15 @@
                         <td>{{$art -> nombre}}</td>
                         <td>{{$art -> stock}}</td>
                         <td>{{$art -> descripcion}}</td>
-                        <td>{{$art -> imagen}}</td>
                         <td>
-                            <button class="btn btn-info">Editar</button>
-                            <button class="btn btn-danger">Eliminar</button>
+                            <img src="{{asset('imagenes/articulos/'. $art->imagen)}}" alt="imagen" height="80px" width="80px" class="img-thumbnail">
+                        </td>
+                        <td>
+                            <a href="{{ route('articulo.edit', $art-> idarticulo) }}"><button class="btn btn-info">Editar</button></a>
+                            <a href="" data-target="#modal-delete-{{$art-> idarticulo}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
                         </td>
                     </tr>
+                    @include('almacen.articulo.modal')
                     @endforeach
                 </tbody>
             </table>
