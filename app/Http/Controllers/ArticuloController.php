@@ -42,4 +42,5 @@ class ArticuloController extends Controller
 
     }
 
+
 }
