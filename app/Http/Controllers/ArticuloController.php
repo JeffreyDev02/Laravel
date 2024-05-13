@@ -22,13 +22,16 @@ class ArticuloController extends Controller
 
             $query = trim($request->get('searchText'));
             $articulos = DB::table('articulo')
-            -> where('nombre', 'LIKE', '%'.$query.'%')
-            -> where('estado', '=', '1')
-            -> orderBy('idarticulo','desc')
+            ->join('categoria','articulo.idcategoria', '=', 'categoria.idcategoria')
+            ->select('articulo.idarticulo as idarticulo', 'categoria.nombre as categoriaNombre', 'categoria.idcategoria', 'articulo.codigo as codigo', 'articulo.nombre as nombre', 'articulo.stock as stock', 'articulo.descripcion as descripcion')
+            ->where('articulo.nombre', 'like', '%'. $query .'%')
+            ->where('articulo.estado', '=', '1')
+            ->orderBy('articulo.idarticulo', 'desc')
             ->paginate(7);
             return view('almacen.articulo.index', ["articulos"=> $articulos, "searchText"=> $query ]);
             
         }
+
     }
 
     public function create()
@@ -44,7 +47,7 @@ class ArticuloController extends Controller
 
     public function store(ArticuloFormRequest $request){
         
-        $name = Input::file('name')->getClientOriginalName();
+       
 
         $data = [
             'idcategoria' => $request -> get('idcategoria'),
@@ -52,7 +55,6 @@ class ArticuloController extends Controller
             'nombre' => $request ->get('nombre'),
             'stock' => $request ->get('stock'),
             'descripcion' => $request ->get('descripcion'),
-            'imagen'=> $name,
             'estado' => '1'
         ];
 
