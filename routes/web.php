@@ -27,6 +27,8 @@ Route::resource('almacen/articulo', ArticuloController::class );
 
 Route::resource('almacen/persona', ClienteController::class);
 
+Route::get('dowload-pdf', 'App\Http\Controllers\CategoriaController@gererar_pdf')->name('descarga-pdf');
+
 
 
 

@@ -9,6 +9,7 @@ use App\Categoria;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\CategoriaFormRequest;
 use DB;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class CategoriaController extends Controller
 {
@@ -28,6 +29,17 @@ class CategoriaController extends Controller
             ->paginate(7);
             return view('almacen.categoria.index',["categorias"=>$categorias,"searchText"=>$query]);
         }
+    }
+
+    public function gererar_pdf()
+    {
+        $categorias=DB::table('categoria')
+        ->where ('condicion','=','1')
+        ->orderBy('idcategoria','desc')
+        ->paginate(7);
+
+        $pdf = PDF::loadView('almacen.categoria.generar_pdf', ['categorias'=> $categorias]);
+        return $pdf ->stream('reporte.pdf');
     }
 
     public function create()

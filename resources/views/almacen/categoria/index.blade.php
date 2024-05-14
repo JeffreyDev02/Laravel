@@ -2,6 +2,9 @@
 @section ('contenido')
 	<div class="row">
 		<div class="col-lg-8 col-md-8 col-ms-8 col-xs-12">
+			<a href="{{route('descarga-pdf')}}" class="btn btn-warning">Generar pdf</a>
+		</div>
+		<div class="col-lg-8 col-md-8 col-ms-8 col-xs-12">
 			<h3>Listado de Categoria <a href="categoria/create"><button class="btn btn-success">Nuevo</button></a></h3>
 			@include('almacen.categoria.search')
 		</div>
