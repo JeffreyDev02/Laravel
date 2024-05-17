@@ -44,7 +44,7 @@ class ProveedorController extends Controller
         ];
 
         DB::table('persona') -> insert($data);
-        return Redirect::to('almacen/compras/proveedor');
+        return Redirect::to('almacen/proveedor');
     }
 
     public function edit($id){
