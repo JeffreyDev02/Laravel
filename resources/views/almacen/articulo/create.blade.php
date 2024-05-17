@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="row">
-        {!! Form::open(array('url'=> 'almacen/articulo', 'method' => 'POST', 'autocomplete' => 'off' )) !!}
+        {!! Form::open(array('url'=> 'almacen/articulo', 'method' => 'POST', 'autocomplete' => 'off', 'files' => true )) !!}
         {{Form::token()}}
         <div class="col-lg-6 col-md-6 col-ms-12">
             <div class="form-group">

@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Persona;
-use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\PersonaFormRequest;
 use DB;
 
-class ClienteController extends Controller
+class ProveedorController extends Controller
 {
-    public function __construct(){}
+    //
+    public function __construct() {
+
+    }
 
     public function index(Request $request){
         if($request){
@@ -18,22 +19,22 @@ class ClienteController extends Controller
             $query = trim($request->get('searchText'));
             $persona = DB::table('persona')
             ->where('nombre','like','%'.$query.'%')
-            ->where('tipo_persona', '=', 'Cliente')
+            ->where('tipo_persona', '=', 'Proveedor')
             ->orwhere('num_documento', 'like', '%'. $query.'%')
-            ->where('tipo_persona','=','Cliente')
+            ->where('tipo_persona','=','Proveedor')
             ->orderBy('idpersona','desc')
             ->paginate(7);
-            return view('almacen.persona.index', ["personas" => $persona, "searchText" => $query]);
+            return view('almacen.compras.proveedor.index', ["personas" => $persona, "searchText" => $query]);
         }
     }
 
     public function create(){
-        return view('almacen.persona.create');
+        return view('almacen.compras.proveedor.create');
     }
 
     public function store(PersonaFormRequest $request){
         $data = [
-            'tipo_persona' => 'Cliente',
+            'tipo_persona' => 'Proveedor',
             'nombre' => $request->get('nombre'),
             'tipo_documento' => $request->get('tipo_documento'),
             'num_documento' => $request->get('num_documento'),
@@ -43,16 +44,16 @@ class ClienteController extends Controller
         ];
 
         DB::table('persona') -> insert($data);
-        return Redirect::to('almacen/persona');
+        return Redirect::to('almacen/compras/proveedor');
     }
 
     public function edit($id){
-        return view("almacen.persona.edit", ["personas"=>Persona::findOrFail($id)]);
+        return view("almacen.compras.proveedor.edit", ["personas"=>Persona::findOrFail($id)]);
     }
 
     public function update(PersonaFormRequest $request, $id){
         $dataUpdate = [
-            'tipo_persona' => 'Cliente',
+            'tipo_persona' => 'Proveedor',
             'nombre' => $request->get('nombre'),
             'tipo_documento' => $request->get('tipo_documento'),
             'num_documento' => $request->get('num_documento'),

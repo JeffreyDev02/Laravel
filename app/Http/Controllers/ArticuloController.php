@@ -23,12 +23,12 @@ class ArticuloController extends Controller
             $query = trim($request->get('searchText'));
             $articulos = DB::table('articulo')
             ->join('categoria','articulo.idcategoria', '=', 'categoria.idcategoria')
-            ->select('articulo.idarticulo as idarticulo', 'categoria.nombre as categoriaNombre', 'categoria.idcategoria', 'articulo.codigo as codigo', 'articulo.nombre as nombre', 'articulo.stock as stock', 'articulo.descripcion as descripcion')
+            ->select('articulo.idarticulo', 'categoria.nombre as categoriaNombre', 'categoria.idcategoria', 'articulo.codigo', 'articulo.nombre', 'articulo.stock', 'articulo.descripcion', 'imagen')
             ->where('articulo.nombre', 'like', '%'. $query .'%')
             ->where('articulo.estado', '=', '1')
             ->orderBy('articulo.idarticulo', 'desc')
             ->paginate(7);
-            return view('almacen.articulo.index', ["articulos"=> $articulos, "searchText"=> $query ]);
+            return view('almacen.articulo.index', ["articulos" => $articulos, "searchText"=> $query ]);
             
         }
 
@@ -46,15 +46,20 @@ class ArticuloController extends Controller
     }
 
     public function store(ArticuloFormRequest $request){
+        $name = "";
+        if($request->hasFile('imagen')){
+            $file = $request->file('imagen');
+            $file-> move(public_path(). "/imagenes/articulos/", $file->getClientOriginalName());
+            $name = $request->file('imagen')->getClientOriginalName();
+        }
         
-       
-
         $data = [
             'idcategoria' => $request -> get('idcategoria'),
             'codigo' => $request -> get('codigo'),
             'nombre' => $request ->get('nombre'),
             'stock' => $request ->get('stock'),
             'descripcion' => $request ->get('descripcion'),
+            'imagen' => $name,
             'estado' => '1'
         ];
 

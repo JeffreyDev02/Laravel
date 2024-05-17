@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ArticuloController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ProveedorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,8 @@ Route::resource('almacen/categoria',  CategoriaController::class);
 Route::resource('almacen/articulo', ArticuloController::class );
 
 Route::resource('almacen/persona', ClienteController::class);
+
+Route::resource('almacen/proveedor', ProveedorController::class);
 
 Route::get('dowload-pdf', 'App\Http\Controllers\CategoriaController@gererar_pdf')->name('descarga-pdf');
 

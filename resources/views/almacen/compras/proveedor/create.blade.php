@@ -14,7 +14,7 @@
                 </div>
                 @endif
     
-                {!! Form::open(array('url' => 'almacen/persona', 'method'=>'POST', 'autocomplete'=> 'off')) !!}
+                {!! Form::open(array('url' => 'almacen/proveedor', 'method'=>'POST', 'autocomplete'=> 'off')) !!}
                 {{Form::token()}}
     
                     <div class="form-group">

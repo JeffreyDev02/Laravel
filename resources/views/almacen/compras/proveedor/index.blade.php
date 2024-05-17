@@ -2,8 +2,8 @@
 @section('contenido')
 <div class="row">
     <div class="col-lg-8 col-md-8 col-ms-8 col-xs-12">
-        <h3>Listado de Cliente <a href="persona/create"><button class="btn btn-success">Nuevo</button></a></h3>
-        @include('almacen.persona.search')
+        <h3>Listado de Proveedores <a href="proveedor/create"><button class="btn btn-success">Nuevo</button></a></h3>
+        @include('almacen.compras.proveedor.search')
     </div>
 </div>
 
@@ -36,11 +36,11 @@
 							<td>{{$persona -> telefono}}</td>
                             <td>{{$persona -> email}}</td>
 							<td>
-								<a href="{{route('persona.edit', $persona -> idpersona)}}"><button class="btn btn-info">Editar</button></a>
+								<a href="{{route('proveedor.edit', $persona -> idpersona)}}"><button class="btn btn-info">Editar</button></a>
 								<a href="" data-target="#modal-delete-{{$persona->idpersona}}" data-toggle="modal" ><button class="btn btn-danger">Eliminar</button></a>
 							</td>
 						</tr>
-						@include('almacen.persona.modal')
+						@include('almacen.compras.proveedor.modal')
 						@endforeach
 					</tbody>
 				</table>

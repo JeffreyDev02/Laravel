@@ -20,6 +20,7 @@
                         <th>Stock</th>
                         <th>Descripcion</th>
                         <th>Imagen</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,7 @@
                         <td>{{$art -> nombre}}</td>
                         <td>{{$art -> stock}}</td>
                         <td>{{$art -> descripcion}}</td>
+                        <td> <img src="{{asset ('imagenes/articulos/'. $art -> imagen )}}" alt="imagen" width="50" height="50" > </td>
                         <td>
                             <a href="{{ route('articulo.edit', $art-> idarticulo) }}"><button class="btn btn-info">Editar</button></a>
                             <a href="" data-target="#modal-delete-{{$art-> idarticulo}}" data-toggle="modal"><button class="btn btn-danger">Eliminar</button></a>
