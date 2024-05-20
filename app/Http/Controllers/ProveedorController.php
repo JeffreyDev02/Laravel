@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\PersonaFormRequest;
+use App\Models\Persona;
 use DB;
 
 class ProveedorController extends Controller
@@ -23,7 +25,7 @@ class ProveedorController extends Controller
             ->orwhere('num_documento', 'like', '%'. $query.'%')
             ->where('tipo_persona','=','Proveedor')
             ->orderBy('idpersona','desc')
-            ->paginate(7);
+            ->paginate(11);
             return view('almacen.compras.proveedor.index', ["personas" => $persona, "searchText" => $query]);
         }
     }
@@ -33,6 +35,7 @@ class ProveedorController extends Controller
     }
 
     public function store(PersonaFormRequest $request){
+        
         $data = [
             'tipo_persona' => 'Proveedor',
             'nombre' => $request->get('nombre'),
@@ -65,7 +68,7 @@ class ProveedorController extends Controller
         -> where('idpersona', $id)
         -> update($dataUpdate);
 
-        return Redirect::to('almacen/persona');
+        return Redirect::to('almacen/proveedor');
     }
 
     public function destroy($id){
@@ -75,6 +78,6 @@ class ProveedorController extends Controller
             'tipo_persona' => 'Inactivo'
         ]);
 
-        return Redirec::to('almacen/persona');
+        return Redirect::to('almacen/proveedor');
     }
 }

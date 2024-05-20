@@ -14,7 +14,7 @@
                 </div>
                 @endif
     
-                {!! Form::model($personas, ['method' => 'PATCH', 'route' => ['persona.update', $personas -> idpersona]] ) !!}
+                {!! Form::model($personas, ['method' => 'PATCH', 'route' => ['proveedor.update', $personas -> idpersona]] ) !!}
                 {{Form::token()}}
     
                     <div class="form-group">
