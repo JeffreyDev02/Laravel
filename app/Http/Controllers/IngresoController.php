@@ -45,7 +45,7 @@ class IngresoController extends Controller
         ->select(DB::raw('CONCAT(art.codigo, " ", art.nombre)'), 'art.idarticulo')
         ->where('art.estado', '=' , 'Activo')
         ->get();
-        return view('compras.ingreso.create', ["personas" => $personas, "articulos" => $articulos]);    
+        return view('almacen.compras.ingreso.create', ["personas" => $personas, "articulos" => $articulos]);    
     }
 
     public function store(Request $request)

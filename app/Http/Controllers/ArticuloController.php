@@ -79,18 +79,21 @@ class ArticuloController extends Controller
 
     public function update(ArticuloFormRequest $request, $id)
     {
+
+        $name = "";
+        if($request->hasFile('imagen')){
+            $file = $request->file('imagen');
+            $file-> move(public_path(). "/imagenes/articulos/", $file->getClientOriginalName());
+            $name = $request->file('imagen')->getClientOriginalName();
+        }
+
+
         $idcategoria = $request->get('idcategoria');
         $codigo = $request->get('codigo');
         $nombre = $request ->get('nombre');
         $stock = $request ->get('stock');
         $descripcion = $request ->get("descripcion");
-
-        $file = "";
-
-        if(Input::hasFile('imagen')){
-            $file = Input::file('imagen');
-            $file -> move(public_path().'/imagenes/articulos/', $file->getClientOriginalName());
-        }
+        
 
         DB::table('articulo')
             -> where('idarticulo', $id)
@@ -100,7 +103,7 @@ class ArticuloController extends Controller
                 'nombre' => $nombre,
                 'stock' => $stock,
                 'descripcion' => $descripcion,
-                'imagen' => $file->getClientOriginalName()
+                
         ]);
 
         return Redirect::to('almacen/articulo');
